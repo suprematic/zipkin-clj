@@ -27,7 +27,18 @@
   {:timestamp timestamp
    :value value})
 
-(defn- new-span
+(defn- opt-update-span!  [f]
+  (if-let [span *current-span*]
+    (set! *current-span* (f span))))
+
+;; ====================================================================
+;; API
+
+(defn set-sender!
+  [sender]
+  (reset! *sender sender))
+
+(defn start-span
   [{span-name :span
     service :service
     parent :parent
@@ -35,7 +46,8 @@
     tags :tags}]
   (let [timestamp (current-time-us)]
     (merge
-      {:id (id64)
+      {::start (start-time)
+       :id (id64)
        :name span-name
        :timestamp timestamp
        :annotations
@@ -50,41 +62,43 @@
           (if service
             {:localEndpoint {:serviceName service}}))))))
 
-;; ====================================================================
-;; API
-
-(defn set-sender!
-  [sender]
-  (reset! *sender sender))
+(defn finish-span
+  [span]
+  (let [us (duration-us (::start span))
+        span (-> span (assoc :duration us) (dissoc ::start))]
+    (@*sender [span])))
 
 (defn trace!*
   [opts f]
-  (let [start (start-time)
-        span (new-span opts)]
+  (let [span (start-span opts)]
     (binding [*current-span* span]
       (try
         (f)
         (finally
-          (let [span *current-span*
-                us (duration-us start)
-                span (assoc span :duration us)]
-            (@*sender [span])))))))
+          (let [span *current-span*]
+            (finish-span span)))))))
 
 (defmacro trace!
   [opts & body]
   `(trace!* ~opts #(do ~@body)))
 
+(defn tag
+  [span tags]
+  (update span :tags merge tags))
+
+(defn annotate
+  [span & annotations]
+  (let [timestamp (current-time-us)
+        annotations (map #(annotation timestamp %) annotations)]
+    (update span :annotations concat annotations)))
+
 (defn tag!
   [tags]
-  (if-let [span *current-span*]
-    (set! *current-span* (update-in span [:tags] merge tags))))
+  (opt-update-span! #(tag % tags)))
 
 (defn annotate!
   [& annotations]
-  (if-let [span *current-span*]
-    (let [timestamp (current-time-us)
-          annotations (map #(annotation timestamp %) annotations)]
-      (set! *current-span* (update-in span [:annotations] concat annotations)))))
+  (opt-update-span! #(apply annotate % annotations)))
 
 (defn current-span []
   *current-span*)
