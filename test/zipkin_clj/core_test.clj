@@ -24,7 +24,7 @@
      ~coll))
 
 (defn- nested-span [i]
-  (zipkin/trace! {:span "my-span-2"
+  (zipkin/child-trace! {:span "my-span-2"
                   :annotations ["sleep250"]
                   :tags {"nested span" "yes"}}
     (zipkin/tag! {"i" i})
