@@ -1,0 +1,8 @@
+image: clojure:lein-2.7.1
+
+pipelines:
+  branches:
+    master:
+      - step:
+          script:
+            - lein deploy snapshots
