@@ -72,6 +72,14 @@
       (finish-span! (get-span @*storage ))
       (pop-span! @*storage))))
 
+(defn trace-context!*
+  [span f]
+  (push-span! @*storage span)
+  (try
+    (f)
+    (finally
+      (pop-span! @*storage))))
+
 ;; ====================================================================
 ;; API
 
@@ -146,3 +154,8 @@
   "recur cannot cross trace! boundaries."
   [opts & body]
   `(trace!* ~opts #(do ~@body)))
+
+(defmacro trace-context!
+  "recur cannot cross trace! boundaries."
+  [span & body]
+  `(trace-context!* ~span #(do ~@body)))
