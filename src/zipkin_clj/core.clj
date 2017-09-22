@@ -131,11 +131,18 @@
   [opts]
   (start-span (assoc opts :parent (current-span))))
 
+(defn finish-span
+  [span]
+  (let [us (duration-us (::start span))]
+    (-> span (assoc :duration us) (dissoc ::start))))
+
+(defn send-span!
+  [span]
+  (@*sender [span]))
+
 (defn finish-span!
   [span]
-  (let [us (duration-us (::start span))
-        span (-> span (assoc :duration us) (dissoc ::start))]
-    (@*sender [span])))
+  (send-span! (finish-span span)))
 
 (defn tag!
   [tags]
