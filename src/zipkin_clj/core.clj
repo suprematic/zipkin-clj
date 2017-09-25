@@ -101,8 +101,27 @@
         annotations (map #(annotation timestamp %) annotations)]
     (update span :annotations concat annotations)))
 
-(defn current-span []
-  (get-span @*storage ))
+(defn current-span
+  []
+  (get-span @*storage))
+
+(defn span
+  [{span-name :span
+    :keys [service parent annotations tags id timestamp]
+    :as opts}]
+  (merge
+    {:id (or id (id64))
+     :name span-name
+     :timestamp timestamp
+     :annotations (map #(annotation timestamp %) annotations)
+     :tags (or tags {})}
+    (if-let [{:keys [traceId localEndpoint id]} parent]
+      {:traceId traceId
+       :localEndpoint localEndpoint
+       :parentId id}
+      {:traceId (id64)})
+    (if service
+      {:localEndpoint {:serviceName service}})))
 
 (defn start-span
   [{span-name :span
@@ -111,21 +130,10 @@
     annotations :annotations
     tags :tags
     :as opts}]
-  (let [timestamp (current-time-us)]
-    (merge
-      {::start (start-time)
-       :id (id64)
-       :name span-name
-       :timestamp timestamp
-       :annotations (map #(annotation timestamp %) annotations)
-       :tags (or tags {})}
-      (if-let [{:keys [traceId localEndpoint id]} parent]
-        {:traceId traceId
-         :localEndpoint localEndpoint
-         :parentId id}
-        {:traceId (id64)})
-      (if service
-        {:localEndpoint {:serviceName service}}))))
+  (-> opts
+      (assoc :timestamp (current-time-us))
+      (span)
+      (assoc ::start (start-time))))
 
 (defn child-span
   [opts]
@@ -133,7 +141,9 @@
 
 (defn finish-span
   [span]
-  (let [us (duration-us (::start span))]
+  (let [us (if-let [start-us (::start span)]
+             (duration-us start-us)
+             (- (current-time-us) (:timestamp span)))]
     (-> span (assoc :duration us) (dissoc ::start))))
 
 (defn send-span!
