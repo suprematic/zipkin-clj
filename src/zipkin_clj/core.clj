@@ -176,3 +176,6 @@
   "recur cannot cross trace! boundaries."
   [span & body]
   `(trace-context!* ~span #(do ~@body)))
+
+(defn externalize [span]
+  (dissoc span ::start))
