@@ -5,4 +5,12 @@ pipelines:
     master:
       - step:
           script:
+            - lein test
             - lein deploy snapshots
+
+  tags:
+    release-*:
+      - step:
+          script:
+            - lein test
+            - lein deploy releases
