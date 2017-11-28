@@ -4,6 +4,8 @@ pipelines:
   branches:
     master:
       - step:
+          caches:
+            - maven
           script:
             - lein test
             - lein deploy snapshots
@@ -11,6 +13,8 @@ pipelines:
   tags:
     release-*:
       - step:
+          caches:
+            - maven
           script:
             - lein test
             - lein deploy releases
