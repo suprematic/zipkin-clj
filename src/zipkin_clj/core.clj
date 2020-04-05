@@ -22,22 +22,22 @@
 (defprotocol ISpanStorage
 
   (get-span [this]
-    "Returns current span or nil if absent.")
+    "Returns the current span or nil if absent.")
 
   (push-span!
     [this span]
-    "Sets span as current. Return value is not specified.")
+    "Sets span as the current. Returned value is unspecified.")
 
   (update-span!
     [this f]
-    "Makes current span to be (f current-span). If there is no current span
-  does nothing.
+    "Sets the current span to (f current-span). If there is no current span
+  does nothing. Returns the updated value.
   All changes made by f must be commutative.")
 
   (pop-span!
     [this]
-    "Makes current span to be as it was before push-span!
-  Return value is not specified."))
+    "Sets the current to the previous value (as it was before push-span!)
+  Returned value is unspecified."))
 
 
 (defrecord DefaultSpanStorage []
@@ -211,7 +211,7 @@
 
 
 (defmacro child-trace!
-  "recur cannot cross trace! boundaries."
+  "recur cannot cross child-trace! boundaries."
   [opts & body]
   `(trace!* (assoc ~opts :parent (current-span)) #(do ~@body)))
 
@@ -223,7 +223,7 @@
 
 
 (defmacro trace-context!
-  "recur cannot cross trace! boundaries."
+  "recur cannot cross trace-context! boundaries."
   [span & body]
   `(trace-context!* ~span #(do ~@body)))
 
