@@ -1,9 +1,11 @@
 /target/
 /classes/
 /checkouts/
+/.clj-kondo/
 
 /.lein-*
 /.nrepl-port
+/.projectile
 
 pom.xml
 pom.xml.asc
