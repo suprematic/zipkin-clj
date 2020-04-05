@@ -3,8 +3,6 @@
   :url "http://www.suprematic.net"
   :description "Zipkin instrumentation library for Clojure."
 
-  :plugins [[lein-ancient "0.6.10"]
-            [s3-wagon-private "1.3.0"]]
 
   :dependencies [[org.clojure/clojure "1.8.0"]]
   :target-path "target/%s"
