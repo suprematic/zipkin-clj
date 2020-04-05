@@ -148,29 +148,24 @@
 (defn span
   [{span-name :span
     :keys [service parent annotations tags id timestamp]
-    :as opts}]
+    :as _opts}]
   (merge
     {:id (or id (id64))
      :name span-name
      :timestamp timestamp
      :annotations (map #(annotation timestamp %) annotations)
      :tags (or tags {})}
-    (if-let [{:keys [traceId localEndpoint id]} parent]
+    (if-some [{:keys [traceId localEndpoint id]} parent]
       {:traceId traceId
        :localEndpoint localEndpoint
        :parentId id}
       {:traceId (id64)})
-    (if service
+    (when service
       {:localEndpoint {:serviceName service}})))
 
 
 (defn start-span
-  [{span-name :span
-    service :service
-    parent :parent
-    annotations :annotations
-    tags :tags
-    :as opts}]
+  [opts]
   (-> opts
     (assoc :timestamp (current-time-us))
     (span)
@@ -184,7 +179,7 @@
 
 (defn finish-span
   [span]
-  (let [us (if-let [start-us (::start span)]
+  (let [us (if-some [start-us (::start span)]
              (duration-us start-us)
              (- (current-time-us) (:timestamp span)))]
     (-> span (assoc :duration us) (dissoc ::start))))
