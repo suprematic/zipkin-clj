@@ -5,8 +5,8 @@
   {:name "Eclipse Public License - v1.0"
    :url  "https://www.eclipse.org/legal/epl-v10.html"}
 
+  :dependencies [[org.clojure/clojure "1.9.0"]]
 
-  :dependencies [[org.clojure/clojure "1.8.0"]]
   :target-path "target/%s"
   :profiles {:test {:dependencies [[org.clojure/core.match "0.3.0-alpha5"]]}
              :uberjar {:aot :all}})
