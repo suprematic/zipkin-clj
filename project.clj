@@ -9,6 +9,9 @@
   [[org.clojure/clojure "1.9.0"]]
 
   :profiles
-  {:test
+  {:dev
+   {:warn-on-reflection true}
+
+   :test
    {:dependencies
     [[org.clojure/core.match "0.3.0-alpha5"]]}})
