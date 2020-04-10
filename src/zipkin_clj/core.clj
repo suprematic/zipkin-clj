@@ -5,7 +5,9 @@
   IMPORTANT:
   Start time is captured in microseconds as System/currentTimeMillis * 1000.
   Duration time is measured in microseconds as a difference between
-  System/nanoTime devided by 1000.")
+  System/nanoTime devided by 1000."
+
+  (:import [java.util.concurrent ThreadLocalRandom]))
 
 
 (declare start-span finish-span!)
@@ -86,7 +88,7 @@
 
 
 (defn- id64 []
-  (format "%016x" (.nextLong (java.util.concurrent.ThreadLocalRandom/current))))
+  (->> (ThreadLocalRandom/current) (.nextLong) (format "%016x")))
 
 
 (defn- annotation [timestamp value]
