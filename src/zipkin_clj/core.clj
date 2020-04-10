@@ -149,14 +149,17 @@
 
 (defn span
   [{span-name :span
-    :keys [service parent annotations tags id timestamp]
+    :keys [sample? debug? service parent annotations tags id timestamp]
     :as _opts}]
   (merge
     {:id (or id (id64))
      :name span-name
      :timestamp timestamp
+     ::sample? (if debug? true (if (some? sample?) sample? true))
      :annotations (map #(annotation timestamp %) annotations)
      :tags (or tags {})}
+    (when debug?
+      {:debug true})
     (if-some [{:keys [traceId localEndpoint id]} parent]
       {:traceId traceId
        :localEndpoint localEndpoint
@@ -189,7 +192,8 @@
 
 (defn send-span!
   [span]
-  (@*sender [(externalize span)]))
+  (when (or (:debug span) (::sample? span))
+    (@*sender [(externalize span)])))
 
 
 (defn finish-span!
@@ -226,4 +230,4 @@
 
 
 (defn externalize [span]
-  (dissoc span ::start))
+  (dissoc span ::start ::sample?))
