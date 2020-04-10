@@ -10,7 +10,7 @@
   (:import [java.util.concurrent ThreadLocalRandom]))
 
 
-(declare start-span finish-span!)
+(declare start-span finish-span! externalize)
 
 
 ;; ====================================================================
@@ -189,7 +189,7 @@
 
 (defn send-span!
   [span]
-  (@*sender [span]))
+  (@*sender [(externalize span)]))
 
 
 (defn finish-span!
