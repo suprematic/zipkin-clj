@@ -149,7 +149,7 @@
 
 (defn span
   [{span-name :span
-    :keys [sample? debug? service parent annotations tags id timestamp]
+    :keys [trace-id sample? debug? service parent annotations tags id timestamp]
     :as _opts}]
   (merge
     {:id (or id (id64))
@@ -164,7 +164,7 @@
       {:traceId traceId
        :localEndpoint localEndpoint
        :parentId id}
-      {:traceId (id64)})
+      {:traceId (or trace-id (id64))})
     (when service
       {:localEndpoint {:serviceName service}})))
 
