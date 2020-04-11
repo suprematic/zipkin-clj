@@ -7,7 +7,8 @@
   Duration time is measured in microseconds as a difference between
   System/nanoTime devided by 1000."
 
-  (:import [java.util.concurrent ThreadLocalRandom]))
+  (:import [java.util.concurrent ThreadLocalRandom])
+  (:require [clojure.set :as set]))
 
 
 (declare start-span finish-span! externalize)
@@ -70,6 +71,9 @@
 (def ^:private *storage (atom (DefaultSpanStorage.)))
 
 
+(def ^:private *endpoint (atom nil))
+
+
 (defn- start-time []
   (System/nanoTime))
 
@@ -130,6 +134,13 @@
   (reset! *storage storage))
 
 
+(defn set-endpoint!
+  [endpoint]
+  (let [endpoint (select-keys endpoint [:service-name])
+        endpoint (set/rename-keys endpoint {:service-name :serviceName})]
+    (reset! *endpoint endpoint)))
+
+
 (defn tag
   [span tags]
   (update span :tags merge tags))
@@ -166,8 +177,10 @@
        :localEndpoint localEndpoint
        :parentId id}
       {:traceId (or trace-id (id64))})
-    (when service
-      {:localEndpoint {:serviceName service}})))
+    (when-let [endpoint (if service
+                          {:serviceName service}
+                          @*endpoint)]
+      {:localEndpoint endpoint})))
 
 
 (defn start-span
