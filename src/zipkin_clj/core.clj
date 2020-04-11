@@ -141,6 +141,12 @@
     (reset! *endpoint endpoint)))
 
 
+(defn configure! [& {:keys [sender storage endpoint]}]
+  (set-sender! sender)
+  (set-storage! storage)
+  (set-endpoint! endpoint))
+
+
 (defn tag
   [span tags]
   (update span :tags merge tags))
