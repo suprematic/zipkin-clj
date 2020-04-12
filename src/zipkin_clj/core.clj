@@ -155,7 +155,7 @@
 (defn annotate
   [span & annotations]
   (let [timestamp (current-time-us)
-        annotations (map #(annotation timestamp %) annotations)]
+        annotations (mapv #(annotation timestamp %) annotations)]
     (update span :annotations concat annotations)))
 
 
@@ -172,7 +172,7 @@
     {:id (or id (id64))
      :name span-name
      ::sample? (if debug? true (if (some? sample?) sample? true))
-     :annotations (map #(annotation timestamp %) annotations)
+     :annotations (mapv #(annotation timestamp %) annotations)
      :tags (or tags {})}
     (when timestamp
       {:timestamp timestamp})
