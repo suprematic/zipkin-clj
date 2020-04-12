@@ -178,9 +178,8 @@
       {:timestamp timestamp})
     (when debug?
       {:debug true})
-    (if-some [{:keys [traceId localEndpoint id]} parent]
+    (if-some [{:keys [traceId id]} parent]
       {:traceId traceId
-       :localEndpoint localEndpoint
        :parentId id}
       {:traceId (or trace-id (id64))})
     (when-let [endpoint (if service
