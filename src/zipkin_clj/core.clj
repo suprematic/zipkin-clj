@@ -154,10 +154,11 @@
   (merge
     {:id (or id (id64))
      :name span-name
-     :timestamp timestamp
      ::sample? (if debug? true (if (some? sample?) sample? true))
      :annotations (map #(annotation timestamp %) annotations)
      :tags (or tags {})}
+    (when timestamp
+      {:timestamp timestamp})
     (when debug?
       {:debug true})
     (if-some [{:keys [traceId localEndpoint id]} parent]
@@ -184,10 +185,13 @@
 
 (defn finish-span
   [span]
-  (let [us (if-some [start-us (::start span)]
-             (duration-us start-us)
-             (- (current-time-us) (:timestamp span)))]
-    (-> span (assoc :duration us) (dissoc ::start))))
+  (let [start-us (::start span)
+        span (dissoc span ::start)]
+    (if start-us
+      (assoc span :duration (duration-us start-us))
+      (if-some [timestamp (:timestamp span)]
+        (assoc span :duration (- (current-time-us) timestamp))
+        span))))
 
 
 (defn send-span!
