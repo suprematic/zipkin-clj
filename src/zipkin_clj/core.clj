@@ -206,13 +206,11 @@
 
 (defn finish-span
   [span]
-  (let [start-us (::start span)
-        span (dissoc span ::start)]
-    (if start-us
-      (assoc span :duration (duration-us start-us))
-      (if-some [timestamp (:timestamp span)]
-        (assoc span :duration (- (current-time-us) timestamp))
-        span))))
+  (if-some [start-us (::start span)]
+    (assoc span :duration (duration-us start-us))
+    (if-some [timestamp (:timestamp span)]
+      (assoc span :duration (- (current-time-us) timestamp))
+      span)))
 
 
 (defn send-span!
