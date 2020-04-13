@@ -31,6 +31,8 @@ page for a list of contributors.
 
 ## Links
 
+[Opentracing][opentracing]
+
 [Zipkin][zipkin]
 
 [B3 trace propagation][zipkin-b3]
