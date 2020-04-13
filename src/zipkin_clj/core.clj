@@ -29,7 +29,7 @@
 
   (push-span!
     [this span]
-    "Sets span as the current. Returned value is unspecified.")
+    "Sets span as the current. Returns the updated span.")
 
   (update-span!
     [this f]
@@ -39,8 +39,8 @@
 
   (pop-span!
     [this]
-    "Sets the current to the previous value (as it was before push-span!)
-  Returned value is unspecified."))
+    "Sets the current span to the previous value (as it was before push-span!)
+  Returns the current span."))
 
 
 (defrecord DefaultSpanStorage []
@@ -51,14 +51,17 @@
       @span))
 
   (push-span! [_ span]
-    (push-thread-bindings {#'*current-span* (atom span)}))
+    (push-thread-bindings {#'*current-span* (atom span)})
+    span)
 
   (update-span!  [_ f]
     (when-some [span *current-span*]
       (swap! span f)))
 
   (pop-span! [_]
-    (pop-thread-bindings)))
+    (when-let [span *current-span*]
+      (pop-thread-bindings)
+      @span)))
 
 
 ;; TODO possibly it should print something
