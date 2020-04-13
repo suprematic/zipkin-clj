@@ -51,10 +51,36 @@ taking a list of spans as an argument:
 
 ### B3 trace propagation
 
-_TODO_
+As of now there is only a basic support for cross-process trace propagation,
+although the library gives all the required components to make , e.g., a simple
+[Ring middleware][ring-middleware] function propagating trace info.
 
 ``` clojure
-;; TODO
+(ns zipkin-clj.example
+  (:require [zipkin-clj.b3 :as zipkin-b3]
+            [zipkin-clj.core :as zipkin]))
+
+(-> {:span "root-span"} zipkin/start-span zipkin-b3/encode)
+;; => "efb4a31f19b23694-4d211cf94a75dd99-1"
+
+(zipkin-b3/decode "efb4a31f19b23694-4d211cf94a75dd99-1")
+;; =>
+;; {:id "4d211cf94a75dd99",
+;;  :name nil,
+;;  :zipkin-clj.core/sample? true,
+;;  :annotations [],
+;;  :tags {},
+;;  :traceId "efb4a31f19b23694"}
+
+(if-some [span (some-> request :headers (get "b3") zipkin-b3/decode)]
+  (zipkin/trace-context! span
+    (zipkin/annotate! "got request")
+    (zipkin/child-trace!
+      {:span "child-span"}
+      (Thread/sleep 500)))
+  (zipkin/trace!
+    {:span "new-trace-span"}
+    (Thread/sleep 500)))
 ```
 
 ### Span storage (advanced)
@@ -100,3 +126,4 @@ Distributed under the Eclipse Public License v1.0.
 [clojars-shield]: https://img.shields.io/clojars/v/zipkin-clj.svg
 [clojars-info]: https://clojars.org/zipkin-clj/latest-version.svg
 [clojars-project]: https://clojars.org/zipkin-clj
+[ring-middleware]: https://github.com/ring-clojure/ring/wiki/Concepts#middleware
