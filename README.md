@@ -13,6 +13,12 @@ version number. Bugfix (third) version number is not expected to break the API.
 
 [![zipkin-clj @clojars][clojars-info]][clojars-project]
 
+## Contributing
+
+Please use the project's GitHub issues page for all questions, ideas,
+etc. Pull requests are welcome. See the project's GitHub contributors
+page for a list of contributors.
+
 ## Links
 
 [Zipkin][zipkin]
