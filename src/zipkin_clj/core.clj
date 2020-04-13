@@ -143,8 +143,7 @@
 
 (defn set-endpoint!
   [endpoint]
-  (let [endpoint (select-keys endpoint [:service-name])
-        endpoint (set/rename-keys endpoint {:service-name :serviceName})]
+  (let [endpoint (set/rename-keys endpoint {:service-name :serviceName})]
     (reset! *endpoint endpoint)))
 
 
