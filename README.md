@@ -91,7 +91,7 @@ where to get the current span to work with.
 
 Sometimes there already is some kind of execution context with its own
 propagation mechanics (e.g., otplike's message context). In this case, it's
-more convenient to store the spans in using that context.
+more convenient to store the spans using that context.
 
 In order to do that, one needs to implement the `zipkin_clj.core.ISpanStorage`
 interface. Use the [default implementation][default-span-storage] as an
@@ -153,7 +153,7 @@ example.
     (zipkin/annotate! "awake")))
 ```
 
-Try it youself:
+Try it yourself:
 
 1. Start zipkin on `localhost:9411`
 2. Run `lein with-profile example repl` in the project directory
