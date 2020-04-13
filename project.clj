@@ -10,7 +10,8 @@
 
   :profiles
   {:dev
-   {:warn-on-reflection true}
+   {:global-vars
+    {*warn-on-reflection* true}}
 
    :example
    {:dependencies
