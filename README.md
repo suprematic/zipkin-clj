@@ -21,6 +21,13 @@ version number. Bugfix (third) version number is not expected to break the API.
 
 [Zipkin span format][zipkin-api]
 
+## License
+
+Copyright © 2020 [SUPREMATIC][suprematic] and contributors.
+
+Distributed under the Eclipse Public License v1.0.
+
+[suprematic]: https://suprematic.de
 [zipkin]: https://zipkin.io
 [zipkin-b3]: https://github.com/openzipkin/b3-propagation
 [zipkin-api]: https://zipkin.io/zipkin-api/#/default/post_spans
