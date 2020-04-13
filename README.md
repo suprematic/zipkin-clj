@@ -49,7 +49,7 @@ taking a list of spans as an argument:
 (zipkin/set-sender! (http-trace-sender))
 ```
 
-### Span storage
+### B3 trace propagation
 
 _TODO_
 
@@ -57,7 +57,7 @@ _TODO_
 ;; TODO
 ```
 
-### B3 trace propagation
+### Span storage (advanced)
 
 _TODO_
 
