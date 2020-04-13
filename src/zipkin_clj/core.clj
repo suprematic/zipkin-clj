@@ -141,9 +141,12 @@
     (reset! *endpoint endpoint)))
 
 
-(defn configure! [& {:keys [sender storage endpoint]}]
-  (set-sender! sender)
-  (set-storage! storage)
+(defn configure!
+  [& {:keys [sender storage endpoint] :as opts}]
+  (when (contains? opts :sender)
+    (set-sender! sender))
+  (when (contains? opts :storage)
+    (set-storage! storage))
   (set-endpoint! endpoint))
 
 
