@@ -23,18 +23,18 @@ _TODO_
 
 _TODO_
 
-## Contributing
-
-Please use the project's GitHub issues page for all questions, ideas,
-etc. Pull requests are welcome. See the project's GitHub contributors
-page for a list of contributors.
-
 ## Links
 
 - [Opentracing][opentracing]
 - [Zipkin][zipkin]
 - [B3 trace propagation][zipkin-b3]
 - [Zipkin span format][zipkin-api]
+
+## Contributing
+
+Please use the project's GitHub issues page for all questions, ideas,
+etc. Pull requests are welcome. See the project's GitHub contributors
+page for a list of contributors.
 
 ## License
 
