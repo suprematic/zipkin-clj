@@ -114,7 +114,10 @@ example.
 
 Please use the project's GitHub issues page for all questions, ideas,
 etc. Pull requests are welcome. See the project's GitHub contributors
-page for a list of contributors.
+page for the list of contributors.
+
+This project uses the simplified [Clojure formatting style][clojure-style].
+
 
 ## License
 
@@ -134,3 +137,4 @@ Distributed under the Eclipse Public License v1.0.
 [clojars-project]: https://clojars.org/zipkin-clj
 [ring-middleware]: https://github.com/ring-clojure/ring/wiki/Concepts#middleware
 [default-span-storage]: https://github.com/suprematic/zipkin-clj/blob/master/src/zipkin_clj/core.clj#L46
+[clojure-style]: https://tonsky.me/blog/clojurefmt/
