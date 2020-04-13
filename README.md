@@ -23,10 +23,25 @@ _TODO_
 
 ### Sending to Zipkin
 
-_TODO_
+By default trace information is discarded. In order to send it to Zipkin
+(or anywhere else) one must configure the sender. The sender is just a function
+taking a list of spans as an argument:
 
 ``` clojure
-;; TODO
+(ns zipkin-clj.example
+  (:require [cheshire.core :as json]
+            [clj-http.client :as http]
+            [zipkin-clj.core :as zipkin]))
+
+(defn- http-trace-sender []
+  (let [zipkin-url (str (System/getenv "ZIPKIN_URL") "/api/v2/spans")]
+    (fn [spans]
+      (let [json-body (json/generate-string spans)]
+        (http/post zipkin-url
+          {:body json-body
+           :content-type :json})))))
+
+(zipkin/set-sender! (http-trace-sender))
 ```
 
 ### Span storage
