@@ -13,6 +13,14 @@ version number. Bugfix (third) version number is not expected to break the API.
 
 [![zipkin-clj @clojars][clojars-info]][clojars-project]
 
+## Usage
+
+_TODO_
+
+## Example
+
+_TODO_
+
 ## Contributing
 
 Please use the project's GitHub issues page for all questions, ideas,
