@@ -4,6 +4,11 @@
 
 FIXME: description
 
+## Project status
+
+Early Access: until the version 1.0.0, the API changes with each minor (second)
+version number. Bugfix (third) version number is not expected to break the API.
+
 ## Installation
 
 [![zipkin-clj @clojars][clojars-info]][clojars-project]
