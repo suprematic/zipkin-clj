@@ -11,7 +11,7 @@
   (:require [clojure.set :as set]))
 
 
-(declare start-span finish-span! externalize)
+(declare start-span finish-span send-span! externalize)
 
 
 ;; ====================================================================
@@ -109,8 +109,10 @@
   (try
     (f)
     (finally
-      (finish-span! (get-span @*storage ))
-      (pop-span! @*storage))))
+      (-> @*storage
+        pop-span!
+        finish-span
+        send-span!))))
 
 
 (defn trace-context!*
@@ -220,11 +222,6 @@
   [span]
   (when (or (:debug span) (::sample? span))
     (@*sender [(externalize span)])))
-
-
-(defn finish-span!
-  [span]
-  (send-span! (finish-span span)))
 
 
 (defn tag!
