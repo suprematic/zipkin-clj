@@ -85,11 +85,17 @@ although the library gives all the required components to make , e.g., a simple
 
 ### Span storage (advanced)
 
-_TODO_
+By default, zipkin-clj uses thread-local bindings to store spans.
+That's how, e.g., the `child-trace!` macro or the `annotate!` function know
+where to get the current span to work with.
 
-``` clojure
-;; TODO
-```
+Sometimes there already is some kind of execution context with its own
+propagation mechanics (e.g., otplike's message context). In this case, it's
+more convenient to store the spans in using that context.
+
+In order to do that, one needs to implement the `zipkin_clj.core.ISpanStorage`
+interface. Use the [default implementation][default-span-storage] as an
+example.
 
 ## Example
 
@@ -127,3 +133,4 @@ Distributed under the Eclipse Public License v1.0.
 [clojars-info]: https://clojars.org/zipkin-clj/latest-version.svg
 [clojars-project]: https://clojars.org/zipkin-clj
 [ring-middleware]: https://github.com/ring-clojure/ring/wiki/Concepts#middleware
+[default-span-storage]: https://github.com/suprematic/zipkin-clj/blob/master/src/zipkin_clj/core.clj#L46
