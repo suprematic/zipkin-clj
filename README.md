@@ -17,11 +17,39 @@ version number. Bugfix (third) version number is not expected to break the API.
 
 ## Usage
 
+### Endpoint info
+
 _TODO_
+
+### Sending to Zipkin
+
+_TODO_
+
+``` clojure
+;; TODO
+```
+
+### Span storage
+
+_TODO_
+
+``` clojure
+;; TODO
+```
+
+### B3 trace propagation
+
+_TODO_
+
+``` clojure
+;; TODO
+```
 
 ## Example
 
-_TODO_
+``` clojure
+;; TODO
+```
 
 ## Links
 
