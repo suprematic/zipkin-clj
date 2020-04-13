@@ -19,7 +19,12 @@ version number. Bugfix (third) version number is not expected to break the API.
 
 ### Endpoint info
 
-_TODO_
+Before sending traces to Zipkin, it's essential to configure the endpoint
+where the tracing events originate from.
+
+``` clojure
+(zipkin/set-endpoint! {:service-name "service@host"})
+```
 
 ### Sending to Zipkin
 
