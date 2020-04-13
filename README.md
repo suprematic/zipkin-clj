@@ -153,6 +153,13 @@ example.
     (zipkin/annotate! "awake")))
 ```
 
+Try it youself:
+
+1. Start zipkin on `localhost:9411`
+2. Run `lein with-profile example repl` in the project directory
+3. Call `(main)`
+4. Find the trace in Zipkin UI.
+
 ## Links
 
 - [Opentracing][opentracing]
