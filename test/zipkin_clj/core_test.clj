@@ -47,10 +47,11 @@
 
 (deftest a-test
   (let [spans (atom [])]
-    (zipkin/set-sender! (partial collecting-sender spans))
+    (zipkin/configure!
+      :sender (partial collecting-sender spans)
+      :endpoint {:service-name "my-service"})
     (zipkin/trace!
       {:span "my-span-1"
-       :service "my-service"
        :tags {"root span" "yes"}}
       (nested-span 1)
       (nested-span 2))
