@@ -3,17 +3,6 @@
             [clojure.test :refer [deftest is]]
             [zipkin-clj.core :as zipkin]))
 
-;;===
-#_(ns zipkin-clj.core-test
-  (:require [org.httpkit.client :as http]
-            [cheshire.core :as json]
-            [zipkin-clj.core :as zipkin]))
-
-#_(defn http-sender [encoder spans]
-    (let [body (json/generate-string spans)]
-      @(http/post "http://127.0.0.1:9411/api/v2/spans" {:body body})))
-;;===
-
 
 ;; ====================================================================
 ;; Internal
