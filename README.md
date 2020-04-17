@@ -180,7 +180,7 @@ This project uses the simplified [Clojure formatting style][clojure-style].
 
 Copyright © 2020 [SUPREMATIC][suprematic] and contributors.
 
-Distributed under the Eclipse Public License v1.0.
+Distributed under the [Eclipse Public License v1.0][eclipse-license].
 
 [#links]: https://github.com/suprematic/zipkin-clj#links
 [#examples]: https://github.com/suprematic/zipkin-clj#example
@@ -195,3 +195,4 @@ Distributed under the Eclipse Public License v1.0.
 [ring-middleware]: https://github.com/ring-clojure/ring/wiki/Concepts#middleware
 [default-span-storage]: https://github.com/suprematic/zipkin-clj/blob/master/src/zipkin_clj/core.clj#L46
 [clojure-style]: https://tonsky.me/blog/clojurefmt/
+[eclipse-license]: https://www.eclipse.org/legal/epl-v10.html
