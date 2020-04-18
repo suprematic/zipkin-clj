@@ -342,7 +342,14 @@
 
 
 (defmacro trace!
-  "recur cannot cross trace! boundaries."
+  "Executes `body` setting the current span to a newly created root span.
+  Passes the created span (possibly updated during the body execution)
+  to `send-span!` before returning.
+  Returns the body execution result.
+
+  See `span` for the list of options.
+
+  Note: `recur` cannot cross `trace!` boundaries."
   [opts & body]
   `(trace!* ~opts #(do ~@body)))
 
