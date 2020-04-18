@@ -318,6 +318,11 @@
 
 
 (defn annotate!
+  "Adds `annotations` with the current timestamp to the current `span`.
+  If there is no current span, does nothing.
+  Returns the updated span.
+
+  See `annotate`."
   [& annotations]
   (update-span! @*storage #(apply annotate % annotations)))
 
