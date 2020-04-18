@@ -328,7 +328,15 @@
 
 
 (defmacro child-trace!
-  "recur cannot cross child-trace! boundaries."
+  "Executes `body` setting the current span to a newly created span with
+  the current span as its parent. If there is no current span, creates
+  a root span. Passes the created span (possibly updated during the body
+  execution) to `send-span!` before returning.
+  Returns the body execution result.
+
+  See `span` for the list of options.
+
+  Note: `recur` cannot cross `child-trace!` boundaries."
   [opts & body]
   `(trace!* (assoc ~opts :parent (current-span)) #(do ~@body)))
 
