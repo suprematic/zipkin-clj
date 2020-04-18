@@ -308,6 +308,11 @@
 
 
 (defn tag!
+  "Adds `tags` to the current span. If there is no current span, does
+  nothing.
+  Returns the updated span or `nil` if none.
+
+  See `tag`."
   [tags]
   (update-span! @*storage #(tag % tags)))
 
