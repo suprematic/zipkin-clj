@@ -219,6 +219,27 @@
 
 
 (defn span
+  "Creates a span.
+
+  The options:
+
+  - `:span` - the span name
+  - `:trace-id` - a string representation of the trace id. The parent's
+    trace id is used if `:parent` is provided. Generated if absent.
+  - `:id` - a string representation of the span id. Generated if absent.
+  - `:annotations` - a sequence of annotation strings (the current
+    timestamp is used).
+  - `:tags` - a map of the span tags (string/keyword -> scalar).
+  - `:timestamp` - the span start timestamp in microseconds.
+  - `:parent` - the parent span.
+  - `:endpoint` - the endpoint description. Overwrite the value set by
+    `set-endpoint!`.
+  - `:sample?` - the sampling decision. If true, the span is sampled
+    (passed to the sender function).
+  - `:debug?` - if true, the span is sampled no matter what sampling
+    decision is.
+
+  Returns the created span."
   [{span-name :span
     :keys [trace-id sample? debug? endpoint parent annotations tags id timestamp]
     :as _opts}]
