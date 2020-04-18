@@ -156,6 +156,7 @@ example.
 Try it yourself:
 
 1. Start zipkin on `localhost:9411`
+  (e.g., `docker run --rm -p 9411:9411 openzipkin/zipkin`)
 2. Run `lein with-profile example repl` in the project directory
 3. Call `(main)`
 4. Find the trace in Zipkin UI `http://localhost:9411/zipkin/`.
