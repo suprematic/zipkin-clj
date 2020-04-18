@@ -202,6 +202,10 @@
 
 
 (defn annotate
+  "Adds `annotations` with the current timestamp to `span`.
+  `annotations` is a sequence of strings.
+
+  Returns the updated span."
   [span & annotations]
   (let [timestamp (current-time-us)
         annotations (mapv #(annotation timestamp %) annotations)]
