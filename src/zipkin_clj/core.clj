@@ -297,6 +297,11 @@
 
 
 (defn send-span!
+  "If sampling decision for `span` evaluates to true, passes
+  externalized span to the sender.
+  Returned value is not specified.
+
+  See `set-sender!`."
   [span]
   (when (or (:debug span) (::sample? span))
     (@*sender [(externalize span)])))
