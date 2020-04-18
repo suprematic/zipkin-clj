@@ -142,6 +142,12 @@
 
 
 (defn set-storage!
+  "Sets the storage used when updating the current span.
+  `storage` is an object implementing `zipkin-clj.core/ISpanStorage`.
+  Returns `storage`.
+
+  The default storage uses thread-local bindings to store the stack of
+  spans."
   [storage]
   (reset! *storage storage))
 
