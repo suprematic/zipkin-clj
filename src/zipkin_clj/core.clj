@@ -193,6 +193,10 @@
 
 
 (defn tag
+  "Adds `tags` to `span`.
+  `tags` is a map of keyword/string to a scalar value.
+
+  Returns the updated span."
   [span tags]
   (update span :tags merge tags))
 
