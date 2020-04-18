@@ -213,6 +213,7 @@
 
 
 (defn current-span
+  "Returns the current span or `nil` if none."
   []
   (get-span @*storage))
 
