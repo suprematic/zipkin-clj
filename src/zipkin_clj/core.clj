@@ -355,7 +355,12 @@
 
 
 (defmacro trace-context!
-  "recur cannot cross trace-context! boundaries."
+  "Executes `body` setting the current span to `span`.
+  Passes the created span (possibly updated during the body execution)
+  to `send-span!` before returning.
+  Returns the body execution result.
+
+  Note: `recur` cannot cross `trace-context!` boundaries."
   [span & body]
   `(trace-context!* ~span #(do ~@body)))
 
