@@ -153,6 +153,21 @@
 
 
 (defn set-endpoint!
+  "Sets the enpoint description which is included into spans sent
+  by the process.
+
+  `endpoint` is a map of keyword to any value the sender function
+  is able to serialize.
+
+  The following keywords are recognized:
+
+  - `:service-name` - the name fo the service/application. Is sent
+    as the \"serviceName\" field of the endpoint description. If
+    both `:service-name` and `:serviceName` keywords are present,
+    the former overwrites the latter.
+
+  There is no default value. Should be set before creating the first
+  span."
   [endpoint]
   (let [endpoint (set/rename-keys endpoint {:service-name :serviceName})]
     (reset! *endpoint endpoint)))
