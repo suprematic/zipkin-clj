@@ -284,6 +284,10 @@
 
 
 (defn finish-span
+  "Adds duration to the span calculating it as a difference between
+  the current time and the start time. Does nothing if span has no
+  start time.
+  Returns the updated span."
   [span]
   (if-some [start-us (::start span)]
     (assoc span :duration (duration-us start-us))
