@@ -1,4 +1,5 @@
 (ns zipkin-clj.b3
+  "See https://github.com/openzipkin/b3-propagation"
   (:require [zipkin-clj.core :as core]))
 
 
@@ -29,9 +30,7 @@
 (defn encode
   "Encodes `span` for propagation in a single \"b3\" header.
   `span` must be a valid span, e.g., produced by `zipkin-clj.core/span`.
-  Returns a string to be used a \"b3\" header value.
-
-  See https://github.com/openzipkin/b3-propagation"
+  Returns a string to be used a \"b3\" header value. "
   [span]
   (let [flags (if (-> span :debug)
                 "d"
