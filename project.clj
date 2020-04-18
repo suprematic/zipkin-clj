@@ -1,4 +1,4 @@
-(defproject zipkin-clj "0.4.0"
+(defproject zipkin-clj "0.4.1-SNAPSHOT"
   :description "Zipkin instrumentation library for Clojure."
   :url "https://github.com/suprematic/zipkin-clj"
   :license
