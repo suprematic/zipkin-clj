@@ -45,7 +45,12 @@
             parent-id))))))
 
 
-(defn decode [^String s]
+(defn decode
+  "Converts a \"b3\" header value into a span.
+  Returns a span to use, e.g., with `zipkin-clj.core/trace-context!` or
+  as a parent span. The span doesn't have start time and therefore is not
+  supposed to be used with `zipkin-clj.core/finish-span`."
+  [^String s]
   (if-some [flags (parse-flags s)]
     (core/span flags)
     (let [t-end (case (.charAt s 16) \- 16 32)
