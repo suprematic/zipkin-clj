@@ -253,5 +253,7 @@
   `(trace-context!* ~span #(do ~@body)))
 
 
-(defn externalize [span]
+(defn externalize
+  "Prepares `span` for serialization before sending to Zipkin."
+  [span]
   (dissoc span ::start ::sample?))
