@@ -52,7 +52,7 @@ taking a list of spans as an argument:
 ### B3 trace propagation
 
 As of now there is only a basic support for cross-process trace propagation,
-although the library gives all the required components to make , e.g., a simple
+although the library gives all the required components to make, e.g., a simple
 [Ring middleware][ring-middleware] function propagating trace info.
 
 ``` clojure
