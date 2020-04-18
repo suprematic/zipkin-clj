@@ -274,6 +274,11 @@
 
 
 (defn child-span
+  "Creates a span with the current timestamp and the current span
+  as the parent.
+  Returns the created span.
+
+  See `span` for the list of options."
   [opts]
   (start-span (assoc opts :parent (current-span))))
 
