@@ -132,6 +132,11 @@
 
 
 (defn set-sender!
+  "Sets the function to use for sampling.
+  `sender` is a function taking a list of spans as an argument.
+  Returns `sender`.
+
+  The default sender does nothing."
   [sender]
   (reset! *sender sender))
 
