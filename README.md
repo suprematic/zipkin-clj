@@ -175,7 +175,6 @@ page for the list of contributors.
 
 This project uses the simplified [Clojure formatting style][clojure-style].
 
-
 ## License
 
 Copyright © 2020 [SUPREMATIC][suprematic] and contributors.
