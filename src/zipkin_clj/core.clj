@@ -226,7 +226,7 @@
     {:id (or id (id64))
      :name span-name
      ::sample? (if debug? true (if (some? sample?) sample? true))
-     :annotations (mapv #(annotation timestamp %) annotations)
+     :annotations (mapv #(annotation (current-time-us) %) annotations)
      :tags (or tags {})}
     (when timestamp
       {:timestamp timestamp})
