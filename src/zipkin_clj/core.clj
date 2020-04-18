@@ -262,6 +262,10 @@
 
 
 (defn start-span
+  "Creates a span with the current timestamp.
+  Returns the created span.
+
+  See `span` for the list of options."
   [opts]
   (-> opts
     (assoc :timestamp (current-time-us))
