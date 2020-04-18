@@ -174,6 +174,16 @@
 
 
 (defn configure!
+  "Allows setting all tracing parameters at once.
+  `opts` is a map with the following keys:
+
+  - `:sender` - a sender function,
+  - `:storage` - a `zipkin-clj.core/ISpanStorage` implementation,
+  - `:endpoint` - an endpoint description map
+
+  Returned value is not specified.
+
+  See `set-sender!`, `set-storage!`, `set-endpoint!`."
   [& {:keys [sender storage endpoint] :as opts}]
   (when (contains? opts :sender)
     (set-sender! sender))
