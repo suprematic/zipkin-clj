@@ -30,7 +30,7 @@
 (defn encode
   "Encodes `span` for propagation in a single \"b3\" header.
   `span` must be a valid span, e.g., produced by `zipkin-clj.core/span`.
-  Returns a string to be used a \"b3\" header value. "
+  Returns a string to be used as a \"b3\" header value. "
   [span]
   (let [flags (if (-> span :debug)
                 "d"
