@@ -136,21 +136,21 @@ example.
     (Thread/sleep 100)))
 
 
-(defn- go-to-bed [])
+(defn- go-to-bed []
+  (zipkin/annotate! "in-bed"))
 
 
-(defn- wake-up [])
+(defn- wake-up []
+  (zipkin/annotate! "awake"))
 
 
 (defn main []
   (zipkin/trace!
     {:span "night"}
     (go-to-bed)
-    (zipkin/annotate! "in-bed")
     (sleep)
     (sleep-more)
-    (wake-up)
-    (zipkin/annotate! "awake")))
+    (wake-up)))
 ```
 
 Try it yourself:
