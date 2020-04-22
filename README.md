@@ -4,7 +4,7 @@
 
 zipkin-clj is a tracing instrumentation library producing trace information
 compatible with [Zipkin API v2][zipkin-api]. See [Links][#links] to find out
-more about [Zipkin][zipkin] and [Opentracing][opentracing].
+more about [Zipkin][zipkin].
 
 ## Project status
 
@@ -163,7 +163,6 @@ Try it yourself:
 
 ## Links
 
-- [Opentracing][opentracing]
 - [Zipkin][zipkin]
 - [B3 trace propagation][zipkin-b3]
 - [Zipkin span format][zipkin-api]
@@ -185,7 +184,6 @@ Distributed under the [Eclipse Public License v1.0][eclipse-license].
 [#links]: https://github.com/suprematic/zipkin-clj#links
 [#examples]: https://github.com/suprematic/zipkin-clj#example
 [suprematic]: https://suprematic.de
-[opentracing]: https://opentracing.io/
 [zipkin]: https://zipkin.io
 [zipkin-b3]: https://github.com/openzipkin/b3-propagation
 [zipkin-api]: https://zipkin.io/zipkin-api/#/default/post_spans
