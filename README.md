@@ -182,7 +182,6 @@ Copyright © 2020 [SUPREMATIC][suprematic] and contributors.
 Distributed under the [Eclipse Public License v1.0][eclipse-license].
 
 [#links]: https://github.com/suprematic/zipkin-clj#links
-[#examples]: https://github.com/suprematic/zipkin-clj#example
 [suprematic]: https://suprematic.de
 [zipkin]: https://zipkin.io
 [zipkin-b3]: https://github.com/openzipkin/b3-propagation
